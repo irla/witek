@@ -1,15 +1,23 @@
-lib-cov
-*.seed
+# Eclipse
+.project
+.settings/*
+
+# Logs
 *.log
-*.csv
-*.dat
-*.out
-*.pid
-*.gz
 
-pids
-logs
-results
+# Node specyfic
+node_modules/*
 
-npm-debug.log
-node_modules
+# Secrets
+config/envs/dev.js
+config/envs/live.js
+
+
+# OS generated files #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
