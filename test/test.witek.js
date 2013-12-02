@@ -1,25 +1,17 @@
-var witek = require('../lib/witek'),
-	expect = require('expect');
+var request = require('supertest'),
+  	express = require('express'),
+  	witek = require('../lib/witek'),
+	ejslocals = require('ejs-locals');
 
-var controller = {
-	index : function() { }	
-};
+var app = express();
+app.set('views', __dirname + '/fixtures/views');
+app.set('view engine', 'ejs');
+app.engine('ejs', ejslocals);
 
-var mockApp = {
-	gets : [],	posts: [],	puts: [],	dels: [],
-	get: function(url, funct)  { this.gets[url] = funct;},
-	post: function(url, funct) { this.posts[url] = funct;},
-	put: function(url, funct)  { this.puts[url] = funct;},
-	del: function(url, funct)  { this.dels[url] = funct;},
-	clear: function() {
-		this.gets = [];
-		this.posts = [];
-		this.puts = [];
-		this.dels = [];
-	}
-};
+witek.process(app, __dirname + '/fixtures/controllers');
 
 
+<<<<<<< HEAD
 describe('Processing controller',function(){
 	var restMethodsController = {
 		index: function(){return 'index';}, // standard listing method
@@ -301,4 +293,15 @@ describe('Processing controller',function(){
 	  
   });
 
+=======
+describe('Application seceleton', function(){
+	describe('Test controller', function(done) {
+		it('should implement it\'s test action', function(done){
+			request(app)
+				.get('/test/test/15')
+				.expect(200, '<h1>Test 15</h1>')
+				.end(done);
+		});
+	});
+>>>>>>> 72d69655511bb9dd7d56ad19bc47f17c54225640
 });
