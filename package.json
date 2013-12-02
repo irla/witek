@@ -17,18 +17,12 @@
   "dependencies": {},
   "devDependencies": {
     "mocha": "*",
-<<<<<<< HEAD
-    "//": "Expect has to be installed from github https://github.com/LearnBoost/expect.js/archive/master.tar.gz then rename expect.js to expect",
-    "expect": "0.2.0",
-    "expect.js": "https://github.com/LearnBoost/expect.js/archive/master.tar.gz"
-=======
     "expect.js": "0.2.*",
     "should": "2.1.*",
     "express": "3.3.8",
     "ejs": "0.8.4",
     "ejs-locals": "1.0.2",
     "supertest": "0.8.*"
->>>>>>> 72d69655511bb9dd7d56ad19bc47f17c54225640
   },
   "scripts": {
     "test": "mocha -r should -R spec"
