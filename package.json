@@ -17,7 +17,7 @@
   "dependencies": {},
   "devDependencies": {
     "mocha": "*",
-    "//": "Expect has to be installed from git //has to be installed from github https://github.com/LearnBoost/expect.js/archive/master.tar.gz then rename expect.js to expect",
+    "//": "Expect has to be installed from github https://github.com/LearnBoost/expect.js/archive/master.tar.gz then rename expect.js to expect",
     "expect": "0.2.0",
     "expect.js": "https://github.com/LearnBoost/expect.js/archive/master.tar.gz"
   },
