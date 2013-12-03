@@ -53,13 +53,13 @@ describe('Application seceleton', function(){
 		it('should implment rest style "update" method', function(done){
 			request(app)
 				.put('/restLike/41')
-				.expect(200, '<h1>Rest Like Edit: 41</h1>')
+				.expect(200, '<h1>Rest Like Update: 41</h1>')
 				.end(done);
 		});
 		it('should implment rest style "destroy" method', function(done){
 			request(app)
 				.del('/restLike/41')
-				.expect(200, '<h1>Rest Like Destroy: 41</h1>')
+				.expect(200, 'Destroyed')
 				.end(done);
 		});
 	});

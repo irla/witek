@@ -6,5 +6,5 @@ exports.controller = {
 	show: function(req, res, next) { res.render({title: 'Rest Like Show: ' + req.params.id});},
 	edit: function(req, res, next) { res.render({title: 'Rest Like Edit: ' + req.params.id});},
 	update: function(req, res, next) { res.render({title: 'Rest Like Update: ' + req.params.id});},
-	destroy: function(req, res, next) { res.render({title: 'Rest Like Destroy: ' + req.params.id});},
+	destroy: function(req, res, next) { res.end('Destroyed');},
 };
