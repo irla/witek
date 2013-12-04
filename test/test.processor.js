@@ -1,9 +1,6 @@
 var witek = require('../lib/witek'),
 	expect = require('expect.js');
 
-var controller = {
-	index : function() { }	
-};
 
 var mockApp = {
 	gets : [],	posts: [],	puts: [],	dels: [],
@@ -19,9 +16,14 @@ var mockApp = {
 	}
 };
 
+var defaultProps = {
+	viewSuffix: 'html.ejs'
+};
+
 
 describe('Processing controller',function(){
-	var restMethodsController = {
+	var restMethodsController = {};
+	restMethodsController.actions = {
 		index: function(){return 'index';}, // standard listing method
 		'new': function(){return 'new';}, // standard create new pre method
 		create: function(){return 'create';},// standard function for creating bussines
@@ -33,7 +35,7 @@ describe('Processing controller',function(){
 	
   describe('standard REST methods, no base url controller',function(){
 	  mockApp.clear();
-	  witek.processor(mockApp, 'standardRest.js', restMethodsController);
+	  witek.processor(mockApp, 'standardRest.js', restMethodsController, defaultProps);
 	  var gets = mockApp.gets;
 	  var posts = mockApp.posts;
 	  var puts = mockApp.puts;
@@ -99,7 +101,7 @@ describe('Processing controller',function(){
   describe('standard REST methods, with base url /testing/:parentId',function(){
 	  mockApp.clear();
 	  restMethodsController.baseUrl = 'testing/:parentId';
-	  witek.processor(mockApp, 'standardRest.js', restMethodsController);
+	  witek.processor(mockApp, 'standardRest.js', restMethodsController, defaultProps);
 	  delete restMethodsController;
 	  var gets = mockApp.gets;
 	  var posts = mockApp.posts;

@@ -8,7 +8,11 @@ app.set('views', __dirname + '/fixtures/views');
 app.set('view engine', 'ejs');
 app.engine('ejs', ejslocals);
 
-witek.process(app, __dirname + '/fixtures/controllers');
+witek.process(app, {
+	controllers: __dirname + '/fixtures/controllers',
+	viewSuffix: 'html.ejs'
+});
+
 
 describe('Application seceleton', function(){
 	describe('Test controller', function() {

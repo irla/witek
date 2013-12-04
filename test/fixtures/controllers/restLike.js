@@ -1,5 +1,5 @@
 
-exports.controller = {	
+exports.actions = {	
 	index: function(req, res, next) { res.render({title: 'Rest Like Index'});},
 	'new': function(req, res, next) { res.render({title: 'Rest Like New'});},
 	create: function(req, res, next) { res.render({title: 'Rest Like Create'});},
