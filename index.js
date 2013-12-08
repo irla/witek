@@ -1,3 +1,3 @@
-exports.controllers = require('./lib/controllers.js').process;
+exports.controllers = require('./lib/controllers').process;
 
-exports.loader = undefined; // here the function for config loader
+exports.loader = require('./lib/loader'); // here the function for config loader

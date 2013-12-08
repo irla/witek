@@ -1,121 +1,37 @@
 var request = require('supertest'),
-  	express = require('express'),
   	witek = require('..'),
-	ejslocals = require('ejs-locals');
+	expect = require('expect.js');
 
-var app = express();
-app.set('views', __dirname + '/fixtures/views');
-app.set('view engine', 'ejs');
-app.engine('ejs', ejslocals);
-
-//this should be fired on the end of app run
-witek.controllers(app, {
-	controllers: __dirname + '/fixtures/controllers',
-	viewSuffix: 'html.ejs'
-});
+var app = {
+	enablings: [],
+	enable: function(what) {this.enablings.push(what);},
+	clear: function(){this.enablings = [];}
+};
 
 
-describe('Application seceleton', function(){
-	describe('Test controller', function() {
-		it('should implement it\'s test action', function(done){
-			request(app)
-				.get('/test/test/15')
-				.expect(200, '<h1>Test 15</h1>')
-				.end(done);
+describe('Config files boot order', function(){
+	var testForEnvironment = function(env, done) {
+		app.clear();
+		app.settings = {env: 'env'};
+		witek.load(app, './fixtures/loader_app/config');
+		expect(app.enablings).to.be.an('array');
+		expect(app.enablings).to.have.length(5);
+		expect(app.enablings[0]).to.be('all');
+		expect(app.enablings[1]).to.be(env);
+		expect(app.enablings[2]).to.be('first');
+		expect(app.enablings[3]).to.be('some_in_middle');
+		expect(app.enablings[4]).to.be('let_say_this_is_last');
+		done();
+	};
+	describe('For different environments', function() {		
+		it('should load files in correct orders for development environment', function(done){
+			testForEnvironment('development', done);
 		});
-	});
-	describe('Rest like controller - no base url', function(){
-		it('should implment rest style "index" method', function(done){
-			request(app)
-				.get('/restLike')
-				.expect(200, '<h1>Rest Like Index</h1>')
-				.end(done);
+		it('should load files in correct orders for production environment', function(done){
+			testForEnvironment('production', done);
 		});
-		it('should implment rest style "new" method', function(done){
-			request(app)
-				.get('/restLike/new')
-				.expect(200, '<h1>Rest Like New</h1>')
-				.end(done);
-		});
-		it('should implment rest style "create" method', function(done){
-			request(app)
-				.post('/restLike')
-				.expect(200, '<h1>Rest Like Create</h1>')
-				.end(done);
-		});
-		it('should implment rest style "show" method', function(done){
-			request(app)
-				.get('/restLike/41')
-				.expect(200, '<h1>Rest Like Show: 41</h1>')
-				.end(done);
-		});
-		it('should implment rest style "edit" method', function(done){
-			request(app)
-				.get('/restLike/41/edit')
-				.expect(200, '<h1>Rest Like Edit: 41</h1>')
-				.end(done);
-		});
-		it('should implment rest style "update" method', function(done){
-			request(app)
-				.put('/restLike/41')
-				.expect(200, '<h1>Rest Like Update: 41</h1>')
-				.end(done);
-		});
-		it('should implment rest style "destroy" method', function(done){
-			request(app)
-				.del('/restLike/41')
-				.expect(200, 'Destroyed')
-				.end(done);
-		});
-	});
-	describe('Base url controller with detailed and standard actions', function(){
-		it('Index method points to base url/controller name', function(done){
-			request(app)
-			.get('/albums/41/photos')
-			.expect(200, '<h1>Base Url Index. Parent Id: 41</h1>')
-			.end(done);
-		});
-		it('custom method point to base url/controller name/custom/:id?', function(done){
-			request(app)
-			.get('/albums/41/photos/custom/44')
-			.expect(200, '<h1>Custom action in photo, Album Id: 41, Id: 44</h1>')
-			.end(done);
-		});
-		it('detailed get method should be handled', function(done){
-			request(app)
-			.get('/albums/41/photos/detailed/45')
-			.expect(200, '<h1>Detailed Get Action, Album Id: 41, Id: 45</h1>')
-			.end(done);
-		});
-		it('detailed post method should be handled', function(done){
-			request(app)
-			.post('/albums/41/photos/detailed/46')
-			.expect(200, '<h1>Detailed Post Action, Album Id: 41, Id: 46</h1>')
-			.end(done);
-		});
-		it('detailed put with relative url should be handled', function(done){
-			request(app)
-			.put('/albums/41/photos/relativePath/47')
-			.expect(200, '<h1>Detailed Relative Url Put, Album Id: 41, Id: 47</h1>')
-			.end(done);
-		});
-		it('detailed delete with relative url should be handled', function(done){
-			request(app)
-			.del('/albums/41/photos/relativePath/48')
-			.expect(200, '<h1>Detailed Relative Url Delete, Album Id: 41, Id: 48</h1>')
-			.end(done);
-		});
-		it('detailed get with absolute url should be handled', function(done){
-			request(app)
-			.get('/absolutePath/49')
-			.expect(200, '<h1>Detailed Absolute Url Get, Album Id: None, Id: 49</h1>')
-			.end(done);
-		});
-		it('detailed post with absolute url should be handled', function(done){
-			request(app)
-			.post('/absolutePath/50')
-			.expect(200, '<h1>Detailed Absolute Url Post, Album Id: None, Id: 50</h1>')
-			.end(done);
+		it('should load files in correct orders for stage environment', function(done){
+			testForEnvironment('stage', done);
 		});
 	});
 });

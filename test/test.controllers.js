@@ -14,10 +14,6 @@ witek.controllers(app, {
 	viewSuffix: 'html.ejs'
 });
 
-console.log('----');
-console.log(app.settings.env);
-console.log('----');
-
 
 describe('Application seceleton', function(){
 	describe('Test controller', function() {
