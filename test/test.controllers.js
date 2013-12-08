@@ -1,6 +1,6 @@
 var request = require('supertest'),
   	express = require('express'),
-  	witek = require('../lib/witek'),
+  	witek = require('..'),
 	ejslocals = require('ejs-locals');
 
 var app = express();
@@ -8,10 +8,15 @@ app.set('views', __dirname + '/fixtures/views');
 app.set('view engine', 'ejs');
 app.engine('ejs', ejslocals);
 
-witek.process(app, {
+//this should be fired on the end of app run
+witek.controllers(app, {
 	controllers: __dirname + '/fixtures/controllers',
 	viewSuffix: 'html.ejs'
 });
+
+console.log('----');
+console.log(app.settings.env);
+console.log('----');
 
 
 describe('Application seceleton', function(){

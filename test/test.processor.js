@@ -1,4 +1,4 @@
-var witek = require('../lib/witek'),
+var controllers = require('../lib/controllers'),
 	expect = require('expect.js');
 
 
@@ -35,7 +35,7 @@ describe('Processing controller',function(){
 	
   describe('standard REST methods, no base url controller',function(){
 	  mockApp.clear();
-	  witek.processor(mockApp, 'standardRest.js', restMethodsController, defaultProps);
+	  controllers.processor(mockApp, 'standardRest.js', restMethodsController, defaultProps);
 	  var gets = mockApp.gets;
 	  var posts = mockApp.posts;
 	  var puts = mockApp.puts;
@@ -101,7 +101,7 @@ describe('Processing controller',function(){
   describe('standard REST methods, with base url /testing/:parentId',function(){
 	  mockApp.clear();
 	  restMethodsController.baseUrl = 'testing/:parentId';
-	  witek.processor(mockApp, 'standardRest.js', restMethodsController, defaultProps);
+	  controllers.processor(mockApp, 'standardRest.js', restMethodsController, defaultProps);
 	  delete restMethodsController;
 	  var gets = mockApp.gets;
 	  var posts = mockApp.posts;
