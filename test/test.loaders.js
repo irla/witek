@@ -12,12 +12,12 @@ var app = {
 describe('Config files boot order', function(){
 	var testForEnvironment = function(env, done) {
 		app.clear();
-		app.settings = {env: 'env'};
-		witek.load(app, './fixtures/loader_app/config');
+		app.settings = {env: env};
+		witek.load(app, __dirname + '/fixtures/loader_app/config');
 		expect(app.enablings).to.be.an('array');
 		expect(app.enablings).to.have.length(5);
-		expect(app.enablings[0]).to.be('all');
-		expect(app.enablings[1]).to.be(env);
+		expect(app.enablings[0]).to.be(env);
+		expect(app.enablings[1]).to.be('all');
 		expect(app.enablings[2]).to.be('first');
 		expect(app.enablings[3]).to.be('some_in_middle');
 		expect(app.enablings[4]).to.be('let_say_this_is_last');
