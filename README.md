@@ -72,6 +72,22 @@ Controller should be simple JavaScript object, it's functions will be automatica
        'example_action': function(req, res, next) { }; 
     };
     
-will be mapped to http://yourapphost/example_controller/example_action
+will be mapped to GET http://yourapphost/example_controller/example_action
+
+#### REST actions
+
+Witek define 7 default actions which are treated as default REST actions. Name of controller is `albums.js`.
+
+    /** This is the source of albums.js controller */
+    exports.actions = {
+       'index': function(){},  // This will be mapped to GET http://yourapphost/albums
+       'show': function(){},   // GET    http://yourapphost/albums/:id
+       'new': function(){},    // GET    http://yourapphost/albums/new
+       'create': function(){}, // POST   http://yourapphost/albums
+       'edit': function(){},   // GET    http://yourapphost/albums/:id/edit
+       'update': function(){}, // PUT    http://yourapphost/albums/:id
+       'del': function(){},    // DELETE http://yourapphost/albums/:id
+    };
+
 
 
