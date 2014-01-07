@@ -8,11 +8,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/irla/open-track-pack.git"
+    "url": "git://github.com/irla/witek-mvc.git"
   },
-  "homepage": "https://github.com/irla/witek",
-  "name": "witek",
-  "version": "0.7.1",
+  "homepage": "http://irla.github.io/witek-mvc",
+  "name": "witek-mvc",
+  "version": "0.7.2",
   "private": false,
   "dependencies": {},
   "devDependencies": {
