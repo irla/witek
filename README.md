@@ -1,4 +1,4 @@
-Witek
+Witek-MVC
 =====
 
 ### Simple MVC for node and express
