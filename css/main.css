@@ -1,0 +1,56 @@
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+header {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  font-family: 'Architects Daughter', 'Helvetica Neue', Helvetica, Arial, serif; 
+  background: #2e7bcf url(../images/header-bg.jpg) 0 0 repeat-x;
+  border-bottom: solid 1px #275da1;
+}
+
+header h1 {
+  letter-spacing: -1px;
+  font-size: 72px;
+  color: #fff;
+  line-height: 1;
+  margin-bottom: 0.2em;
+  width: 540px;
+}
+
+header h2 {
+  font-size: 26px;
+  color: #9ddcff;
+  font-weight: normal;
+  line-height: 1.3;
+  width: 540px;
+  letter-spacing: 0;
+}
+
+a.button {
+  width: 134px;
+  height: 58px;
+  line-height: 1.2;
+  font-size: 23px;
+  color: #fff;
+  padding-left: 68px;
+  padding-top: 22px;
+  font-family: 'Architects Daughter', 'Helvetica Neue', Helvetica, Arial, serif; 
+}
+a.button small {
+  display: block;
+  font-size: 11px;
+}
+header a.button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: transparent url(../images/github-button.png) 0 0 no-repeat;
+  
+  -webkit-box-sizing: content-box;
+     -moz-box-sizing: content-box;
+          box-sizing: content-box;
+}

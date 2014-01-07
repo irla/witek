@@ -1,0 +1,23 @@
+# Eclipse
+.project
+.settings/*
+
+# Logs
+*.log
+
+# Node specyfic
+node_modules/*
+
+# Secrets
+config/envs/dev.js
+config/envs/live.js
+
+
+# OS generated files #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
