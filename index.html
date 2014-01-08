@@ -1,50 +1,202 @@
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
 
-    <title>Starter Template for Bootstrap</title>
+<title>Starter Template for Bootstrap</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.css" rel="stylesheet">
+<!-- Bootstrap core CSS -->
+<link href="css/bootstrap.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="css/main.css" rel="stylesheet">    
+<!-- Custom styles for this template -->
+<link href="css/main.css" rel="stylesheet">
 
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
-  </head>
+</head>
 
-  <body>
-    <header>
-      <div class="container">
-      	<div class="row">
-      		<div class="col-md-12">
-		        <h1>Witek-MVC</h1>
-		        <h2>Simple MVC for node express</h2>
-		        <a href="https://github.com/irla/witek-mvc" class="button"><small>View project on</small>GitHub</a>
-	        </div>
-        </div>
-      </div>
-    </header>
-    
-    <div class="container">
+<body>
+	<header>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<h1>Witek-MVC</h1>
+					<h2>Simple MVC for node express</h2>
+					<a href="https://github.com/irla/witek-mvc" class="button"><small>View
+							project on</small>GitHub</a>
+				</div>
+			</div>
+		</div>
+	</header>
 
-    </div><!-- /.container -->
+	<div class="container">
+	 <div class="row">
+	  <div class="col-md-9">  
+		<h1><a name="witek-mvc" class="anchor" href="#witek-mvc"><i class="glyphicon glyphicon-paperclip"></i></a> Witek-MVC
+		</h1>
+
+		<h2><a class="anchor" href="#simple-mvc-for-node-and-express"><span
+				class="octicon octicon-link"></span></a>Simple MVC helper for node and express
+		</h2>
+
+		<p>Witek has two functions - he initialise controllers and load
+			config files.</p>
+
+		<h3>Installation</h3>
+
+		<pre>
+$ npm install witek --save
+		</pre>
+
+		<p>
+			(<code>--save</code> automatically writes to your <code>package.json</code> file, tell your friends)
+		</p>
+
+		<h3>Start</h3>
+
+		<p>
+			Traditional
+			<code>app.js</code>
+			is used as a starting point of the app, but anything what is required
+			is to tell Witek to load config files.
+		</p>
+
+		<pre>
+var app = require('express')();
+require('witek').load(app, __dirname + '/config');
+		</pre>
+
+		<h3>Config load</h3>
+
+		<p>Config structure is based on locomotivejs framework. Witek
+			expects to have config folder strucuture as folows:</p>
+
+<pre>
+# config
+   # enfironment
+      - all.js
+      - development.js
+      - stage.js
+      - live.js
+   # initilizers
+      - 01_view_engine.js
+      - 02_auth.js
+      - 10_controllers.js
+      - 99_last.js
+</pre>
+		<p>
+			At first it loads enviroment depend file from
+			<code>environment</code>
+			folder, then
+			<code>all.js</code>
+			file is loaded. These files are good place to set express variables.
+		</p>
+
+		<pre>
+/** This is the content of development.js file */
+module.exports = function(app) {
+    app.set('mongodb-uri', 'mongodb://localhost:27017/WitekDB');       
+};
+		</pre>
+
+		<p>After loading enviroment depended configs, initilizers are
+			loaded (in alphabetical order).</p>
+
+		<pre>
+/* Content of 01_view_engine.js */
+var ejslocals = require('ejs-locals');
+module.exports = function(app) {
+    app.set('views', __dirname + '/../../views');
+    app.set('view engine', 'ejs');
+    app.engine('ejs', ejslocals);
+};
+		</pre>
+
+		<h3>Controllers load</h3>
+
+		<p>
+			To load controllers one of initializers can be used. Here
+			<code>10_controllers.js</code>
+			:
+		</p>
+
+		<pre>
+var witek = require('witek');
+module.exports = function(app) {
+    witek.controllers(app, {
+        controllers: app.get(__dirname + '/../../controllers'),
+        viewSuffix: 'html.ejs'
+    });
+};
+		</pre>
+
+		<h3>Controllers description</h3>
+
+		<p>
+			Controller should be simple JavaScript object, it's functions will be
+			automatically mapped to url. Let's say we have controller with name
+			<code>example_controller.js</code>
+			action below -
+		</p>
+
+		<pre>
+exports.actions = {
+   'example_action': function(req, res, next) { }; 
+};
+		</pre>
+
+		<p>will be mapped to GET http://yourapphost/example_controller/example_action</p>
+
+		<h4>REST actions</h4>
+
+		<p>
+			Witek define 7 default actions which are treated as default REST
+			actions. Name of controller is
+			<code>albums.js</code>
+			.
+		</p>
+
+		<pre>
+/** This is the source of albums.js controller */
+exports.actions = {
+   'index': function(){},  // This will be mapped to GET http://yourapphost/albums
+   'show': function(){},   // GET    http://yourapphost/albums/:id
+   'new': function(){},    // GET    http://yourapphost/albums/new
+   'create': function(){}, // POST   http://yourapphost/albums
+   'edit': function(){},   // GET    http://yourapphost/albums/:id/edit
+   'update': function(){}, // PUT    http://yourapphost/albums/:id
+   'del': function(){},    // DELETE http://yourapphost/albums/:id
+};
+		</pre>
+	 </div>
+	 <div class="col-md-3">
+	 
+	 <ul class="nav nav-stacked" id="sidebar">
+                  <li><a href="#sec0">Section 0</a></li>
+                  <li><a href="#sec1">Section 1</a></li>
+                  <li><a href="#sec2">Section 2</a></li>
+                  <li><a href="#sec3">Section 3</a></li>
+                  <li><a href="#sec4">Section 4</a></li>
+              	</ul>
+	 </div>
+	 </div>
+	</div>
+	<!-- /.container -->
 
 
-    <!-- Bootstrap core JavaScript
+	<!-- Bootstrap core JavaScript
     ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-  </body>
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/main.js"></script>
+</body>
 </html>
