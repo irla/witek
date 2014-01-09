@@ -54,3 +54,35 @@ header a.button {
      -moz-box-sizing: content-box;
           box-sizing: content-box;
 }
+
+li.nav-H1 a {
+	font-size: 1.3em;
+	padding: 5px 15px 5px 10px;	
+}
+li.nav-H2 a {
+	font-size: 1.2em;
+	padding: 5px 15px 5px 20px;	
+}
+li.nav-H3 a {
+	font-size: 1.1em;	
+	padding: 5px 15px 5px 30px;	
+}
+li.nav-H4 a {
+	font-size: 1em;
+	padding: 5px 15px 5px 40px;	
+}
+li.nav-H5 a {
+	font-size: 0.9em;
+	padding: 5px 15px 5px 50px;	
+}
+li.nav-H6 a {
+	font-size: 0.8em;
+	padding: 5px 15px 5px 60px;	
+}
+
+.affix-top {
+	
+}
+.affix {
+	top: 0px;
+}
