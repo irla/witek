@@ -37,7 +37,7 @@
 		</div>
 	</header>
 
-	<div class="container">
+	<div class="container" id="article">
 	 <div class="row">
 	  <div class="col-md-9">  
 		<h1><a name="witek-mvc" class="anchor" href="#witek-mvc"><i class="glyphicon glyphicon-paperclip"></i></a> Witek-MVC
@@ -179,8 +179,13 @@ exports.actions = {
 	 </div>
 	 <div class="col-md-3">
 	 
-	 <ul class="nav nav-stacked" id="sidebar">
-                  <li><a href="#sec0">Section 0</a></li>
+	 <ul class="nav" id="sidebar">
+                  <li><a href="#sec0">Section 0</a>
+                  	<ul class="nav">
+                  		<li><a href="#">sub 0</a></li>
+                  		<li><a href="#">sub 1</a></li>
+                  	</ul>
+                  </li>
                   <li><a href="#sec1">Section 1</a></li>
                   <li><a href="#sec2">Section 2</a></li>
                   <li><a href="#sec3">Section 3</a></li>
