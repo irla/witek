@@ -19,7 +19,7 @@ $(function(){
 		$this.attr('id', id);
 		var tagName = $this.prop('tagName');
 		
-		$this.html('<a href="#' + text + '"><i class="glyphicon glyphicon-' + icons[tagName] + '"></i></a> ' + text);
+		$this.html('<a><i class="glyphicon glyphicon-' + icons[tagName] + '"></i></a> ' + text);
 		$sidebar.append($('<li class="nav-' + tagName + '"><a href="#' + id + '">' + text + '</a></li>'));
 	});
 	
@@ -32,6 +32,10 @@ $(function(){
 	
 	$('body').scrollspy({ target: '#sidebar-container' });
 	
-	setTimeout(function(){$('body').scrollspy('refresh');}, 100);
+	setTimeout(function(){
+		$('[data-spy="scroll"]').each(function () {  
+			  $(this).scrollspy('refresh');
+			}); 
+	}, 100);
 	
 });

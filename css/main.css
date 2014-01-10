@@ -80,9 +80,15 @@ li.nav-H6 a {
 	padding: 5px 15px 5px 60px;	
 }
 
+li.active a {
+	background: #9DDCFF;
+}
+
 .affix-top {
-	
+	margin-top: 15px;
+	width: 263px;
 }
 .affix {
-	top: 0px;
+	top: 15px;
+	width: 263px;
 }
