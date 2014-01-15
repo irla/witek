@@ -15,7 +15,7 @@ $(function(){
 	$.each($hs, function(){
 		var $this = $(this);
 		var text = $.trim($this.text());
-		var id = text.toLowerCase().replace(/\s/g,'_');
+		var id = text.toLowerCase().replace(/(\s|\?)/g,'_');
 		$this.attr('id', id);
 		var tagName = $this.prop('tagName');
 		

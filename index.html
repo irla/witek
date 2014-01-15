@@ -25,11 +25,10 @@
 			<div class="row">
 				<div class="col-md-3">
 					<h1>Witek-MVC</h1>
-					<h2>Simple MVC for node express</h2>
+					<h2>Simple MVC helper for <a href="http://nodejs.org/">node.js</a> and <a href="http://expressjs.com/">express</a></h2>
 				</div>
 				<div class="col-md-1 pull-right">
-					<a href="https://github.com/irla/witek-mvc" class="button"><small>View
-							project on</small>GitHub</a>
+					<a href="https://github.com/irla/witek-mvc" class="button"><small>View project on</small>GitHub</a>
 				</div>
 			</div>
 		</div>
@@ -37,42 +36,55 @@
 
 	<div class="container" id="article">
 	 <div class="row">
-	  <div class="col-md-9">  
-		<h1>Witek-MVC</h1>
+	  <div class="col-md-9">
+	  
+<!-- BEGINING OF THE ARTICLE -->	  
+	    
+<h1>Witek-MVC</h1>
 
-		<h2>What is it</h2>
+<h2>What is it?</h2>
+<div class="row">
+	<div class="col-md-5  bs-callout bs-callout-info">
+		<h4>Loads config files</h4>
+		<ul>
+			<li>Allows you to separate config files</li>
+			<li>Loads environment dependent configs</li>
+		</ul>
+	</div>	
+	<div class="col-md-5 col-md-offset-1 bs-callout bs-callout-info">
+		<h4>Initialise controllers</h4>
+		<p>Witek reads all your controllers, maps their actions to urls and
+		   provides default views support 
+		</p> 
+	</div>
+</div>
 
-		<p>Witek has two functions - he initialise controllers and load
-			config files.</p>
+<p>Witek has two functions - he initialise controllers and load
+	config files.</p>
 
-		<h1>Installation</h1>
-
-		<pre>
+<h1>Installation</h1>
+<pre>
 $ npm install witek --save
-		</pre>
+</pre>
 
-		<p>
-			(<code>--save</code> automatically writes to your <code>package.json</code> file, tell your friends)
-		</p>
+<p>
+	(<code>--save</code> automatically writes to your <code>package.json</code> file)
+</p>
 
-		<h3>Start</h3>
+<h3>Start</h3>
+<p>
+	Traditional	<code>app.js</code>	is used as a starting point of the app, but anything what is required
+	is to tell Witek to load config files.
+</p>
 
-		<p>
-			Traditional
-			<code>app.js</code>
-			is used as a starting point of the app, but anything what is required
-			is to tell Witek to load config files.
-		</p>
-
-		<pre>
+<pre>
 var app = require('express')();
 require('witek').load(app, __dirname + '/config');
-		</pre>
+</pre>
 
-		<h3>Config load</h3>
-
-		<p>Config structure is based on locomotivejs framework. Witek
-			expects to have config folder strucuture as folows:</p>
+<h3>Config load</h3>
+<p>Config structure is based on locomotivejs framework. Witek
+	expects to have config folder strucuture as folows:</p>
 
 <pre>
 # config
@@ -87,25 +99,25 @@ require('witek').load(app, __dirname + '/config');
       - 10_controllers.js
       - 99_last.js
 </pre>
-		<p>
+<p>
 			At first it loads enviroment depend file from
 			<code>environment</code>
 			folder, then
 			<code>all.js</code>
 			file is loaded. These files are good place to set express variables.
-		</p>
+</p>
 
-		<pre>
+<pre>
 /** This is the content of development.js file */
 module.exports = function(app) {
     app.set('mongodb-uri', 'mongodb://localhost:27017/WitekDB');       
 };
-		</pre>
+</pre>
 
-		<p>After loading enviroment depended configs, initilizers are
-			loaded (in alphabetical order).</p>
+<p>After loading enviroment depended configs, initilizers are
+	loaded (in alphabetical order).</p>
 
-		<pre>
+<pre>
 /* Content of 01_view_engine.js */
 var ejslocals = require('ejs-locals');
 module.exports = function(app) {
@@ -113,17 +125,15 @@ module.exports = function(app) {
     app.set('view engine', 'ejs');
     app.engine('ejs', ejslocals);
 };
-		</pre>
+</pre>
 
-		<h3>Controllers load</h3>
+<h3>Controllers load</h3>
+<p>
+	To load controllers one of initializers can be used. Here
+	<code>10_controllers.js</code>:
+</p>
 
-		<p>
-			To load controllers one of initializers can be used. Here
-			<code>10_controllers.js</code>
-			:
-		</p>
-
-		<pre>
+<pre>
 var witek = require('witek');
 module.exports = function(app) {
     witek.controllers(app, {
@@ -131,35 +141,31 @@ module.exports = function(app) {
         viewSuffix: 'html.ejs'
     });
 };
-		</pre>
+</pre>
 
-		<h3>Controllers description</h3>
+<h3>Controllers description</h3>
+<p>
+	Controller should be simple JavaScript object, it's functions will be
+	automatically mapped to url. Let's say we have controller with name
+	<code>example_controller.js</code>
+	action below -
+</p>
 
-		<p>
-			Controller should be simple JavaScript object, it's functions will be
-			automatically mapped to url. Let's say we have controller with name
-			<code>example_controller.js</code>
-			action below -
-		</p>
-
-		<pre>
+<pre>
 exports.actions = {
    'example_action': function(req, res, next) { }; 
 };
-		</pre>
+</pre>
+<p>will be mapped to GET http://yourapphost/example_controller/example_action</p>
 
-		<p>will be mapped to GET http://yourapphost/example_controller/example_action</p>
+<h4>REST actions</h4>
+<p>
+	Witek define 7 default actions which are treated as default REST
+	actions. Name of controller is
+	<code>albums.js</code>.
+</p>
 
-		<h4>REST actions</h4>
-
-		<p>
-			Witek define 7 default actions which are treated as default REST
-			actions. Name of controller is
-			<code>albums.js</code>
-			.
-		</p>
-
-		<pre>
+<pre>
 /** This is the source of albums.js controller */
 exports.actions = {
    'index': function(){},  // This will be mapped to GET http://yourapphost/albums
@@ -170,7 +176,9 @@ exports.actions = {
    'update': function(){}, // PUT    http://yourapphost/albums/:id
    'del': function(){},    // DELETE http://yourapphost/albums/:id
 };
-		</pre>
+</pre>
+		
+<!-- END OF THE ARTICLE -->		
 	 </div>
 	 <div id="sidebar-container" class="col-md-3">
 		 <ul class="nav" id="sidebar"></ul>
